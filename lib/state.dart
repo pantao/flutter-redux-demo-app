@@ -17,6 +17,12 @@ class AppState {
   get authed => _authorizationToken.length > 0;
 
   AppState(this._authorizationToken);
+
+  // 持久化时，从 JSON 中初始化新的状态
+  static AppState fromJson(dynamic json) => json != null ? AppState(json['authorizationToken'] as String) : AppState('');
+
+  // 更新状态之后，转成 JSON，然后持久化至持久化引擎中
+  dynamic toJson() => {'authorizationToken': _authorizationToken};
 }
 
 /// Reducer
